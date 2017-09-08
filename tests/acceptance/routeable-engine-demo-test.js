@@ -7,6 +7,32 @@ import InstanceInitializer from 'ember-blog/instance-initializers/ember-blog-ins
 
 moduleForAcceptance('Acceptance | routable engine demo');
 
+test('can visit "/"', function(assert) {
+  visit('/');
+
+  andThen(() => {
+    assert.equal(currentURL(), '/');
+  });
+});
+
+test('can find content-for="head" meta tag', function(assert) {
+  visit('/');
+
+  andThen(() => {
+    assert.equal(currentURL(), '/');
+    assert.equal(this.application.$('meta[name=test]').attr("content"), 'test');
+  });
+});
+
+test('can find content-for="body-footer" div tag', function(assert) {
+  visit('/');
+
+  andThen(() => {
+    assert.equal(currentURL(), '/');
+    assert.equal(this.application.$('.test').length, 1);
+  });
+});
+
 test('can invoke components', function(assert) {
   visit('/routable-engine-demo/blog/new');
 
